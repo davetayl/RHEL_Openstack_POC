@@ -65,6 +65,5 @@ export INTERFACE=$INTERFACE
 
 EOF
 
-curl -s https://raw.githubusercontent.com/davetayl/RHEL_Openstack_POC/master/deploymentScript2.sh | sudo stack > /dev/null 2>&1
-curl -s https://raw.githubusercontent.com/davetayl/RHEL_Openstack_POC/master/deploymentScript3.sh | sudo stack > /dev/null 2>&1
-
+runuser -l stack -c 'curl -s https://raw.githubusercontent.com/davetayl/RHEL_Openstack_POC/master/deploymentScript2.sh | sudo sh'
+runuser -l stack -c 'curl -s https://raw.githubusercontent.com/davetayl/RHEL_Openstack_POC/master/deploymentScript3.sh | sudo sh'

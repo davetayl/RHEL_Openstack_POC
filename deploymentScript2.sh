@@ -1,9 +1,7 @@
-# log in as stack user
-# su - $STACKUSER
-
 # The server should have two interfaces, the first should be configured and used for initial setup
 # the second should be free and will become a bridge interface with an IP and all the OS services
 # bound to it, the details below are for the second interface
+bash --rcfile /home/stack/.bashrc
 
 sudo subscription-manager register \
 --username=$RHNACC \

@@ -1,7 +1,6 @@
+bash --rcfile /home/stack/.bashrc
 
-sudo podman login registry.redhat.io
-$RHNACC
-$RHNPASS
+sudo podman login registry.redhat.io -u $RHNACC -p $RHNPASS
 
 sudo openstack tripleo deploy \
   --templates \
