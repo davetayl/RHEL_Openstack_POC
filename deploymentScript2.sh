@@ -99,7 +99,6 @@ EOF
 
 # Update the system and reboot
 sudo dnf -y update
-sudo reboot
 
 # After reboot follow instruction at "https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/16.0/html/quick_start_guide/deploying-the-all-in-one-openstack-installation"
 
