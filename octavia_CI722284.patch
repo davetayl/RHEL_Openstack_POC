@@ -1,0 +1,25 @@
+-       - name: Ensure packages required for configuring octavia are present
+-         package:
+-           name:
+-             - python2-neutronclient
+-             - python2-openstackclient
+-             - openssl
+-           state: present
++        - block:
++            - name: Ensure packages required for configuring octavia are present for CentOS 7
++              package:
++                name:
++                  - python2-neutronclient
++                  - python2-openstackclient
++                  - openssl
++                state: present
++              when: ansible_distribution_major_version is version(8, '<')
++
++            - name: Ensure packages required for configuring octavia are present for CentOS/RHEL 8
++              package:
++                name:
++                  - python3-neutronclient
++                  - python3-openstackclient
++                  - openssl
++                state: present
++              when: ansible_distribution_major_version is version(8, '>=')
