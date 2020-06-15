@@ -21,11 +21,13 @@ sudo subscription-manager repos \
 
 sudo dnf -y install git dnf-utils net-tools tmux python3-tripleoclient octavia-amphora-image-x86_64.noarch
 
-cp /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-worker-container-puppet.yaml /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-worker-container-puppet.yaml.bak
-patch /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-worker-container-puppet.yaml < https://raw.githubusercontent.com/davetayl/RHEL_Openstack_POC/master/octavia_CI722284.patch
+sudo cp /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-worker-container-puppet.yaml /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-worker-container-puppet.yaml.bak
+curl -o octavia_CI722284.patch https://raw.githubusercontent.com/davetayl/RHEL_Openstack_POC/master/octavia_CI722284.patch
+sudo patch /usr/share/openstack-tripleo-heat-templates/deployment/octavia/octavia-worker-container-puppet.yaml < octavia_CI722284.patch
 
 cat > /home/stack/standalone_parameters.yaml << EOF
 parameter_defaults:
+  OctaviaAmphoraSshKeyFile: "/home/stack/.ssh/id_rsa.pub"
   CloudName: $IP
   ControlPlaneStaticRoutes: []
   Debug: true
@@ -107,6 +109,7 @@ sudo openstack tripleo deploy \
   --templates \
   --local-ip=$IP/$NETMASK \
   -e /usr/share/openstack-tripleo-heat-templates/environments/standalone/standalone-tripleo.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/services/octavia.yaml \
   -r /usr/share/openstack-tripleo-heat-templates/roles/Standalone.yaml \
   -e $HOME/containers-prepare-parameters.yaml \
   -e $HOME/standalone_parameters.yaml \
