@@ -117,7 +117,7 @@ sudo openstack tripleo deploy \
   --standalone
 
 # Ansible name issue with OVS fix
-sudo ovs-vsctl set open_vswitch . external-ids:hostname=$(hostname).localdomain
+sudo ovs-vsctl set open_vswitch . external-ids:hostname=($HOSTNAME | awk -F\. '{print $1}').localdomain
 
 export OS_CLOUD=standalone
 openstack endpoint list
